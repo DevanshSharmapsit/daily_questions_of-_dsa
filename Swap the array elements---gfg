@@ -1,0 +1,19 @@
+//User function Template for C++
+
+/*Function to swap array elements
+* arr : array input
+* n : number of elements in array
+*/
+class Solution{
+  public:
+    void swapElements(int arr[], int n){
+        
+        int f=0;
+        int s=f+2;
+        while(s<n){
+            swap(arr[f],arr[s]);
+            f++;
+            s++;
+        }
+    }
+};
