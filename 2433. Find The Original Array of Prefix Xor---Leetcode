@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> findArray(vector<int>& pref) {
+        if(pref.size()==1){
+            return pref;
+        }
+        // return pref;
+        vector<int>ans(pref.size());
+        int curr=pref[0];
+        ans[0]=pref[0];
+        for(int i=1;i<pref.size();i++){
+            ans[i]=pref[i]^curr;
+            curr=pref[i];
+            // int j=0;
+            // while(true){
+            //     if((curr^j)==pref[i]){
+            //         pref[i]=j;
+            //         curr=curr^j;
+            //         break;
+            //     }
+            //     j++;
+
+            // }
+        }
+        return ans;
+    }
+};
