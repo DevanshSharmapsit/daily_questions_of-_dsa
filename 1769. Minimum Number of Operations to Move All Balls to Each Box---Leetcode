@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        vector<int>ans;
+        int sum;
+        for(int i=0;i<boxes.size();i++){
+            sum=0;
+            for(int j=0;j<boxes.size();j++){
+                if(i!=j){
+                    if(boxes[j]=='1'){
+                        // keep in mind about the presence of string traversal not an integer number traversal.
+                        // sum+=(abs(j-i));
+                        int t=abs(j-i);
+                        sum=sum+t;
+                    }
+                }
+            }
+            ans.push_back(sum);
+        }
+        return ans;
+    }
+};
