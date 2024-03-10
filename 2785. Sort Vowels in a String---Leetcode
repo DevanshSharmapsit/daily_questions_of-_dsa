@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        // char arr[]={'a','e','i','o','u','A','E','I','O','U'}
+        string vowel="aeiouAEIOU";
+        vector<char>ans;
+        for(auto i:s){
+            if(vowel.find(i)!=string::npos){
+                ans.push_back(i);  
+            }
+        }
+        
+        sort(ans.begin(),ans.end());
+        string k="";
+        int l=0;
+        for(auto i:s){
+            if(vowel.find(i)==string::npos){
+                k+=i;
+            }
+            else{
+                k+=ans[l];
+                l++;
+            }
+        }
+        return k;
+    }
+};
