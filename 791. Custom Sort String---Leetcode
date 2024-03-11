@@ -1,0 +1,80 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+    //     int i=0;
+    //     int j=0;
+    //     string ans="";
+    //     // int k=0;
+    //     while(i<order.size()){
+    //         j=0;
+    //         bool t=false;
+    //         while(j<s.size()){
+    //             if(order[i]==s[j] and t==false){
+    //                 ans+=order[i];
+    //                 s.erase(j,1);
+    //                 t=true;
+    //                 // if(k<j){
+    //                 //     k=j;
+    //                 // }
+    //             }
+    //             // cout<<ans<<endl;
+    //             // cout<<s<<endl;
+    //             if(order[i]==s[j] and t==true){
+    //                 ans+=order[i];
+    //                 s.erase(j,1);
+    //                 // if(k<j){
+    //                 //     k=j;
+    //                 // }
+    //             }
+                
+    //             if(j==s.size()-1){
+    //                 if(order[i]==s[j]){
+    //                 ans+=order[i];
+    //                 s.erase(j,1);
+    //                 // if(k<j){
+    //                 //     k=j;
+    //                 // }
+    //                 }
+    //             }
+    //             j++;
+    //         }
+    //         i++;
+    //     }
+    //     // cout<<ans<<endl;
+    //     // k=k+1;
+    //     // sort(s.begin(),s.end());
+    //     // i=0;
+    //     // while(i<s.size()){
+    //     //     // cout<<ans<<endl;
+    //     //     ans+=s[i];
+    //     //     cout<<ans<<endl;
+    //     //     i++;
+    //     // }
+    //     if(s.size()!=0){
+    //         ans+=s;
+    //     }
+
+    // // while(){
+    // //     if()
+    // // }
+    //     return ans;
+    unordered_map<char,int>hashmap;
+    for(auto i:s){
+        hashmap[i]++;
+    }
+    string ans="";
+    for(auto i: order){ 
+        while(hashmap.find(i) != hashmap.end() and hashmap[i]>0){
+            ans += i;
+            hashmap[i]--;
+        }
+}
+    for(auto i : hashmap){ 
+        while(i.second > 0){
+            ans += i.first;
+            i.second--;
+        }
+    }
+    return ans;
+    }
+};
