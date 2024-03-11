@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        int i = 0;
+        string seg;
+        vector<string> all;
+        unordered_set<string> hashSet(wordDict.begin(), wordDict.end());
+        traverse(s, i, seg, all, hashSet);
+        return all;
+    }
+private:
+    void traverse(const string& s, int i, string seg,
+                 vector<string>& all,
+                 const unordered_set<string>& hashSet) {
+        if(i == s.size()) {
+            all.push_back(seg);
+        } else {
+            for(int j = i; j < s.size(); j++) {
+                string word = s.substr(i, j-i+1);
+                if(hashSet.find(word) != hashSet.end()) {
+                    if(seg.size() > 0) seg.push_back(' ');
+                    seg = seg + word;
+                    traverse(s, j+1, seg, all, hashSet);
+                    for(int k = 0; k < word.size(); k++) {
+                        seg.pop_back();
+                    }
+                    if(seg.size() > 0) seg.pop_back();
+                }
+            }
+        }
+    }
+};
+
+
+
+
+
