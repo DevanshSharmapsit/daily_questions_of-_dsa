@@ -1,0 +1,130 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) {
+        // unordered_map<val,int>hashset;
+        // ListNode*ptr=head;
+        // while(ptr->next!=NULL){
+        //     hashset[ptr->val]++;
+        //     ptr=ptr->next;
+        // }
+        // int k=0;
+        // vector<int>ans;
+        // int count=0;
+        // for(auto i:hashmap){
+        //     if(i.second<0){
+        //         count++;
+        //         k=i.second*-1;
+        //         ans.push_back(i);
+        //     }
+        //     else{
+        //         if(k==i.second){
+        //             ans.push_back(i);
+        //         }
+        //         // else{
+
+        //         // }
+        //     }
+        // }
+        // // ptr=head;
+        // int i=0;
+        // ListNode* dummy=new Listnode();
+        // dummy->next=head;
+        // ptr=dummy;
+        // if(prt->next!=NULL){
+        //     ptr=ptr->next;
+        // }
+        // while(ptr->next!=NULL){
+        //     if(ptr->val==ans[i]){
+        //         ptr->next=ptr->next->next;
+        //     }
+        //     else{
+        //         ptr=ptr->next;
+        //     }
+        // }
+        // return dummy->next;
+        // vector<int>arr;
+        // ListNode*ptr=head;
+        // int i=0;
+        // int sum=0;
+        // while(ptr!=NULL){
+        //     arr.push_back(ptr->val);
+        //     i++;
+        //     sum+=ptr->val;
+        //     ptr=ptr->next;
+        // }
+        // int m=0;
+        // int n=0;
+        // vector<int>ans;
+        // int currsum=0;
+        // bool t=true;
+        // while(m<i){
+        //     if(currsum==0 and t==false){
+        //         ans.push_back(m);
+        //         ans.push_back(n);
+        //         break;
+        //     }
+        //     if(sum>currsum){
+        //         currsum+=arr[n];
+        //         n++;
+        //         t=false;
+        //     }
+        //     else{
+        //         currsum-=arr[m];
+        //         m++;
+        //         t=false;
+        //     }
+        // }
+        // int k=m-n+1;
+        // ptr=head;
+        // i=0;
+        // ListNode*temp=head;
+        // while(ptr!=NULL){
+        //     if(m==i){
+        //         temp=ptr;
+        //         while(k--){
+        //             ptr=ptr->next;
+        //         }
+        //         temp->next=ptr;
+        //         break;
+        //     }
+        //     i++;
+        //     ptr=ptr->next;
+        // }
+        // return head;
+        int prefixsum=0;
+        unordered_map<int,ListNode*>mp;
+        ListNode* dummy=new ListNode(0);
+        mp[0]=dummy;
+        dummy->next=head;
+        while(head!=NULL){
+            prefixsum+=head->val;
+            if(mp.find(prefixsum)!=mp.end()){
+                // delete wala case h ye
+                ListNode*start=mp[prefixsum];
+                ListNode*temp=start;
+                int psum=prefixsum;
+                while(temp!=head){
+                    temp=temp->next;
+                    psum+=temp->val;
+                    if(temp!=head)mp.erase(psum);
+                }
+            start->next=head->next;
+            }
+            else{
+                mp[prefixsum]=head;
+            }
+            head=head->next;
+        }
+        return dummy->next;
+    }
+};
