@@ -1,0 +1,29 @@
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, goal) {
+        int count = 0;
+        int sum =0;
+        unordered_map<int, int> presum;
+
+        for (int num :nums) {
+            sum += num;
+            if(sum==goal){
+                count++;
+            }
+            if (presum.find(sum - goal) != presum.end()) {
+                count += presum[sum - goal];
+            }
+            if(presum.find(sum)!=presum.end()){
+                 presum[sum]++;
+            }else{
+                presum[sum]=1;
+            }
+           
+        }
+
+        return count;
+    }
+};
