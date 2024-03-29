@@ -1,0 +1,29 @@
+class Solution {
+public:
+    long long findTheArrayConcVal(vector<int>& nums) {
+        long int i=0;
+        long int j=nums.size()-1;
+        long long ans=0;
+        while(i<=j){
+            if(i==j){
+                ans+=nums[j];
+                return ans;
+            }
+            long long f=nums[i];
+            long long s=nums[j];
+            int count=0;
+            while(s){
+                count++;
+                s=s/10;
+            }
+            while(count--){
+                f=f*10;
+            }
+            f+=nums[j];
+            i++;
+            j--;
+            ans+=f;
+        }
+        return ans;
+    }
+};
