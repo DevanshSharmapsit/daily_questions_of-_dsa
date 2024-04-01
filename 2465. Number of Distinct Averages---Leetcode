@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int distinctAverages(vector<int>& nums) {
+        set<double>s;
+        sort(nums.begin(),nums.end());
+        int i=0;
+        int n=nums.size();
+        int j=n-1;
+        while(i<j){
+            //cout<<(nums[i]+nums[j])/2<<endl;
+            s.insert(static_cast<double>(nums[i]+nums[j])/2);
+            i++;
+            j--;
+        }
+        return s.size();
+    }
+};
