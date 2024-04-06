@@ -1,0 +1,63 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<int>st;
+        unordered_set<int>ans;
+        int i=0;
+        int n=s.size();
+        while(i<n){
+            if(s[i]=='('){
+                st.push(i);
+            }
+            else if(s[i]==')'){
+                if(st.empty()){
+                    ans.insert(i);
+                }
+                else{
+                    st.pop();
+                }
+            }
+           i++;
+        }
+        //  for (int i = 0; i < n; i++) {
+        //     if (s[i] == '(') {
+        //         st.push(i); // Push the index of opening parenthesis onto the stack
+        //     } else if (s[i] == ')') {
+        //         if (!st.empty()) {
+        //             st.pop(); // Pop the matching opening parenthesis index from the stack
+        //         } else {
+        //             ans.push_back(i); // If there's no matching opening parenthesis, mark this index for removal
+        //         }
+        //     }
+        // }
+        // int j=0;
+        // int k=0;
+        // string res="";
+        // while(j<n){
+        //     if(ans[k]<j){
+        //         k++;
+        //     }
+        //     if(ans[k]==j){
+        //         k++;
+        //         j++;
+        //     }
+        //     else{
+        //         res+=s[j];
+        //         j++;
+        //     }
+        // }
+        // return res;
+        while(!st.empty()){
+            ans.insert(st.top());
+            st.pop();
+        }
+        string res = "";
+        for (int i = 0; i < n; i++) {
+            if (find(ans.begin(), ans.end(), i) == ans.end()) {
+                res += s[i];
+            }
+        }
+        
+        return res;
+    }
+};
