@@ -1,0 +1,86 @@
+class Solution {
+public:
+    string removeKdigits(string s, int k) {
+        // if(num.size()==1 and k==1){
+        //     return "0";
+        // }
+        // stack<int>s;
+        // int i=1;
+        // int n=num.size();
+        // int m=(num[0]);
+        // s.push(m);
+        // while(i<n){
+        //     m=(num[i]);
+        //     if(s.top()>m and k>0){
+        //         s.pop();
+        //         k--;
+        //     }
+        //     s.push(m);
+        //     i++;
+        // }
+        // string ans="";
+        // while(!s.empty()){
+        //     ans+=s.top();
+        //     s.pop();
+        // }
+        // reverse(ans.begin(),ans.end());
+        // if(ans.size()==num.size() and (num.size()-k)!=ans.size()){
+        //     string result="";
+        //     int run=num.size()-k;
+        //     int p=0;
+        //     while(run--){
+        //         result+=ans[p];
+        //         p++;
+        //     }
+        //     return result;
+        // }
+        // if(ans.size()==1){
+        //     return ans;
+        // }
+        // if(ans[0]=='0'){
+        //    string res="";
+        //    int j=1;
+        //    int l=ans.size();
+        //    bool repeat=true;
+        //    while(j<l){
+        //         if(repeat==true and ans[j]=='0'){
+        //             j++;
+        //         }
+        //         else{
+        //             res+=ans[j];
+        //             j++;
+        //             repeat=false;
+        //         }
+        //    }
+        //    if(res.size()==0){
+        //         return "0";
+        //    }
+        //    return res;
+        // }
+        // return ans;
+        if(s.size()==k){
+            return "0";
+        }
+        int n=s.size();
+        string ans="";
+        
+        for(int i=0;i<n;i++){
+            while(ans.length()>0 && ans.back()>s[i] &&  k>0 ){
+                ans.pop_back();
+                k--;
+            }
+            if(ans.length()>0 || s[i]!='0'){
+                ans.push_back(s[i]);
+            }
+
+        }
+        while(ans.length()>0 && k>0){
+            ans.pop_back();
+            k--;
+        }
+        if(ans == ""){
+            return "0";
+        }
+        return ans;
+    }
+};
