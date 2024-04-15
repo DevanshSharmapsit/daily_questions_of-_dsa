@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int sumNumbers(TreeNode* root) {
+        return sumHelper(root, 0);
+    }
+
+    int sumHelper(TreeNode* root, int currSum) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        currSum = currSum * 10 + root->val;
+
+        if (root->left == nullptr && root->right == nullptr) {
+            return currSum;
+        }
+
+        return sumHelper(root->left, currSum) + sumHelper(root->right, currSum);
+    }
+};
