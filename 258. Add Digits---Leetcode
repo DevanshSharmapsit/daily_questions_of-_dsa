@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int addDigits(int num) {
+        int temp=num;
+        int count=0;
+        while(temp>9){
+            count=0;
+            while(temp>0){
+            int n=temp%10;
+            count+=n;
+            temp=temp/10;
+            }
+            temp=count;
+        }
+        return temp;
+    }
+};
