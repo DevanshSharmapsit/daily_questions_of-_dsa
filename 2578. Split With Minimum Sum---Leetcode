@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int splitNum(int num) {
+        // int count=0;
+        // int n=num;
+        // vector<int>arr;
+        // while(n>0){
+        //     int temp=n%10;
+        //     arr.push_back(temp);
+        //     n=n/10;
+        //     count+=1;
+        // }
+        // if(count==2 or count==1){
+        //     int ans=0;
+        //     int k=0;
+        //     while(count--){
+        //         ans+=arr[k];
+        //         k++;
+        //     }
+        //     return ans;
+        // }
+        // sort(arr.begin(),arr.end());
+        // int i=0;
+        // int j=count-1;
+        // int sum=0;
+        // int total=0;
+        // while(i<=j){
+        //     if(i==j){
+        //         total+=arr[i];
+        //         break;
+        //     }
+        //     while(i<=(count/4) and j>=(count/4)){
+        //         sum=sum*10 +arr[i];
+        //         i++;
+        //         sum=sum*10+arr[j];
+        //         j--;
+        //         total+=sum;
+        //         sum=0;
+        //     }
+        // }
+        // return total;
+
+
+
+        string myast = to_string(num);
+        sort(myast.begin(), myast.end());
+        
+        // now create two splits for minimum
+        string myst1 = "";
+        string myst2 = "";
+        for(int i = 0; i<myast.length(); i+=2)
+            myst1 += myast[i];
+        for(int i = 1; i<myast.length(); i+=2)
+            myst2 += myast[i];
+        int myin1 = stoi(myst1);
+        int myin2 = stoi(myst2);
+        
+        return myin1+myin2;
+    }
+};
