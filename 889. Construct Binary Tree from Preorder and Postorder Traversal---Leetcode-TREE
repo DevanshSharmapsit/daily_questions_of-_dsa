@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    TreeNode* buildatree(vector<int>&preorder,vector<int>&postorder,int prestart,int preend,int poststart,int postend,unordered_map<int,int>&mp){
+        if(prestart>preend || poststart>postend){
+            return NULL;
+        }
+        // int val=mp[prestart];
+        TreeNode* rootNode=new TreeNode(preorder[prestart]);
+          if(preend==prestart){
+            return rootNode;
+        }
+        int leftchildval=preorder[prestart+1];
+        int leftchildindex=mp[leftchildval];
+        int leftsubtreeelements=leftchildindex-poststart+1;
+        rootNode->left=buildatree(preorder,postorder,prestart+1,prestart+leftsubtreeelements,poststart,leftchildindex,mp);
+        rootNode->right=buildatree(preorder,postorder,prestart+leftsubtreeelements+1,preend,leftchildindex+1,postend-1,mp);
+        return rootNode;
+    }
+
+    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+        unordered_map<int,int>mp;
+        for(int i=0;i<postorder.size();i++){
+            mp[postorder[i]]=i;
+        }
+        return buildatree(preorder,postorder,0,preorder.size()-1,0,postorder.size()-1,mp);
+    }
+};
