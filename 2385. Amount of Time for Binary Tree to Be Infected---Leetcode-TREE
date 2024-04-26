@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+int calculatetime(unordered_map<TreeNode*,TreeNode*>&mp,TreeNode* startnode){
+    unordered_set<TreeNode*>infected;
+    queue<TreeNode*>q;
+    q.push(startnode);
+    infected.insert(startnode);
+    int time=0;
+    while(!q.empty()){
+        int currsize=q.size();
+        bool flag=false;
+        while(currsize--){
+            TreeNode* currnode=q.front();
+            q.pop();
+            if(currnode->left!=NULL and !infected.count(currnode->left)){
+                flag=true;
+                infected.insert(currnode->left);
+                q.push(currnode->left);
+            }
+             if(currnode->right!=NULL and !infected.count(currnode->right)){
+                flag=true;
+                infected.insert(currnode->right);
+                q.push(currnode->right);
+            }
+            if(mp[currnode] and !infected.count(mp[currnode])){
+                flag=true;
+                infected.insert(mp[currnode]);
+                q.push(mp[currnode]);
+            }
+        }
+        if(flag==true){
+            time++;
+        }
+    }
+    return time;
+}
+    TreeNode* makemap(unordered_map<TreeNode*,TreeNode*>&mp,TreeNode* root,int start){
+        queue<TreeNode*>q;
+        q.push(root);
+        TreeNode* startnode=NULL;
+        while(!q.empty()){
+            TreeNode* currnode=q.front();
+            q.pop();
+            if(currnode->val==start){
+                startnode=currnode;
+            }
+            if(currnode->left!=NULL){
+                mp[currnode->left]=currnode;
+                q.push(currnode->left);
+            }
+            if(currnode->right!=NULL){
+                mp[currnode->right]=currnode;
+                q.push(currnode->right);
+            }
+        }
+        return startnode;
+    }
+    int amountOfTime(TreeNode* root, int start) {
+        unordered_map<TreeNode*,TreeNode*>mp;
+        TreeNode* startnode=makemap(mp,root,start);
+        return calculatetime(mp,startnode);
+    }
+};
