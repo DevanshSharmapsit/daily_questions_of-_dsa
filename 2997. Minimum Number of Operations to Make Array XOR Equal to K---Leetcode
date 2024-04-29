@@ -1,0 +1,38 @@
+class Solution {
+public:
+string makebinary(int xori){
+    string ans="";
+    int n=xori;
+    while(n>0){
+        char c=n%2 +'0';
+        ans+=c;
+        n=n/2;
+    }
+    return ans;
+}
+    int minOperations(vector<int>& nums, int k) {
+        int xori=0;
+        for(int i=0;i<nums.size();i++){
+           xori=xori^nums[i];
+        }
+        string ans=makebinary(xori);
+        string target=makebinary(k);
+        while(ans.size()>target.size()){
+            target+='0';
+        }
+        while(ans.size()<target.size()){
+            ans+='0';
+        }
+        int i=target.size()-1;
+        int j=ans.size()-1;
+        int count=0;
+        while(j>=0 and i>=0){
+            if(target[i]!=ans[j]){
+                count++;
+            }
+            j--;
+            i--;
+        }
+        return count;
+    }
+};
