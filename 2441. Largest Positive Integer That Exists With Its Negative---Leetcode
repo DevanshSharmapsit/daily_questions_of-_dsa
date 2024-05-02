@@ -18,3 +18,56 @@ public:
         return -1;
     }
 };
+
+
+
+//these are the new approaches to this question:
+
+class Solution {
+public:
+    int findMaxK(vector<int>& nums) {
+        // map<int,int>mp;
+        // for(int i=0;i<nums.size();i++){
+        //     mp[nums[i]]++;
+        // }
+        // sort(nums.begin(),nums.end(),greater<int>());
+        // for(int i=0;i<nums.size();i++){
+        //     if(nums[i]>0 and mp.find(nums[i]*-1)!=mp.end()){
+        //         return nums[i];
+        //     }
+        // }
+        // return -1;
+
+        // without using the map
+        // sort(nums.begin(),nums.end(),greater<int>());
+        // for(int i=0;i<nums.size();i++){
+        //     for(int j=i+1;j<nums.size();j++){
+        //         if(nums[i]>0 and nums[i]*-1 ==nums[j]){
+        //             return nums[i];
+        //         }
+        //         if(nums[i]<0 and nums[i]==nums[j]*-1){
+        //             return nums[j];
+        //         }
+        //     }
+        // }
+        // return -1;
+
+
+        // without using sorting
+        // vector<int>ans;
+        int maxi=-1;
+        for(int i=0;i<nums.size();i++){
+            for(int j=i+1;j<nums.size();j++){
+                if(nums[i]>0 and nums[i]*-1==nums[j]){
+                    maxi=max(maxi,nums[i]);
+                    break;
+                }
+                if(nums[i]<0 and nums[i]==nums[j]*-1){
+                    maxi=max(maxi,nums[j]);
+                    break;
+                }
+            }
+        }
+        return maxi;
+    }
+};
