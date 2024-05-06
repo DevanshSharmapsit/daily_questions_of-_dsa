@@ -1,0 +1,72 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNodes(ListNode* head) {
+        // if(head==NULL){
+        //     return head;
+        // }
+        // ListNode* temp = head;
+        // ListNode* ptr = temp->next;
+        // while (ptr->next != NULL) {
+        //     if (temp->val == ptr->val) {
+        //         ptr = ptr->next;
+        //     } else {
+        //         if (temp->val > ptr->val) {
+        //             ptr = ptr->next;
+        //             temp->next = ptr;
+        //         } else {
+        //             temp = temp->next;
+        //         }
+        //     }
+        // }
+        // return temp;
+
+
+        stack<int>st;
+        ListNode* temp=head;
+        while(temp!=NULL){
+            st.push(temp->val);
+            temp=temp->next;
+        }
+        int tops=st.top();
+        st.pop();
+        stack<int>ans;
+        ans.push(tops);
+        while(!st.empty()){
+            int a=st.top();
+            if(tops<a){
+                tops=a;
+            }
+            if(tops>a){
+                st.pop();
+            }
+            else{
+                ans.push(a);
+                st.pop();
+            }
+        }
+        temp=head;
+        while(!ans.empty()){
+            int t=ans.top();
+            ans.pop();
+            temp->val=t;
+            if(ans.empty()){
+                break;
+            }
+            temp=temp->next;
+        }
+        if(temp!=NULL){
+            temp->next=NULL;
+        }
+        return head;
+    }
+};
