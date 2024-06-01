@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int scoreOfString(string s) {
+        int ans=0;
+        int i=1;
+        int n=s.size();
+        while(i<n){
+            ans+=(abs(s[i-1]-s[i]));
+            i++;
+        }
+        return ans;
+    }
+};
