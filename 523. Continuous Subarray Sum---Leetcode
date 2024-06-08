@@ -1,0 +1,65 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        // int sum = 0;
+        // for (int i = 0; i < nums.size(); i++) {
+        //     sum += nums[i];
+        // }
+        // int i = 0;
+        // int j = nums.size() - 1;
+        // int sum2 = 0;
+        // sum2 = sum;
+        // while (i < j) {
+        //     if (sum % k == 0 and j - i + 1 >= 2) {
+        //         return true;
+        //     }
+        //     if (sum2 % k != 0) {
+        //         if (sum % k != 0) {
+        //             sum -= nums[j];
+        //             j--;
+        //         }
+        //         if (sum % k != 0) {
+        //             sum -= nums[i];
+        //             i++;
+        //         }
+        //     }
+        //     if(sum2%k!=0){
+        //         if(sum%k!=0){
+        //             sum-=nums[i];
+        //             i++;
+        //         }
+        //         if(sum%k!=0){
+        //             sum-=nums[j];
+        //             j--;
+        //         }
+        //     }
+        // }
+        // return false;
+        // int sum = 0;
+        // for (int i = 0; i < nums.size(); i++) {
+        //     for (int j = i; j < nums.size(); j++) {
+        //         sum += nums[j];
+        //         if (sum % k == 0 and j - i + 1 >= 2) {
+        //             return true;
+        //         }
+        //     }
+        //     sum = 0;
+        // }
+        // return false;
+        unordered_map<int,int>mp;
+        mp[0]=-1;
+        int sum=0;
+        for(int i=0;i<nums.size();i++){
+            sum+=nums[i];
+            if(mp.find((sum%k))!=mp.end()){
+                if(i-mp[sum%k]>=2){
+                    return true;
+                }
+            }
+            else{
+                mp[sum%k]=i;
+            }
+        }
+        return false;
+    }
+};
