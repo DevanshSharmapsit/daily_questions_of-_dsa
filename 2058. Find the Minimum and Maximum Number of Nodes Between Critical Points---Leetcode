@@ -1,0 +1,94 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+// class Solution {
+// public:
+//     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+//         ListNode* ptr1=head;
+//         ListNode* ptr2=head->next;
+//         ListNode* ptr3=head->next->next;
+//         vector<int>arr;
+//         int i=2;
+//         while(ptr3!=NULL){
+//             if(ptr3->next==NULL){
+//                 break;
+//             }
+//             if(ptr2->val>ptr1->val and ptr2->val>ptr3->val){
+//                 arr.push_back(i);
+//             }
+//             else if(ptr2->val<ptr1->val and ptr2->val<ptr3->val){
+//                 arr.push_back(i);
+//             }
+//             ptr1=ptr1->next;
+//             ptr2=ptr2->next;
+//             ptr3=ptr3->next;
+//             i++;
+//         }
+//         vector<int>ans;
+//         int mini=0;
+//         int maxi=0;
+
+//         for(int i=0;i<arr.size();i++){
+//             for(int j=i+1;j<arr.size();j++){
+//                 cout<<arr[i]<<endl;
+//                 mini=min(mini,abs(arr[j]-arr[i]));
+//                 maxi=max(maxi,abs(arr[j]-arr[i]));
+//             }
+//         }
+//         if(maxi==0 and mini==0){
+//             ans.push_back(-1);
+//             ans.push_back(-1);
+//             return ans;
+//         }
+//         ans.push_back(mini);
+//         ans.push_back(maxi);
+//         return ans;
+//     }
+// };
+
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        if (!head || !head->next || !head->next->next) {
+            return {-1, -1}; // Less than 3 nodes
+        }
+        
+        ListNode* ptr1 = head;
+        ListNode* ptr2 = head->next;
+        ListNode* ptr3 = head->next->next;
+        vector<int> arr;
+        int pos = 2; // Since ptr3 starts at head->next->next, its position is 2
+        
+        while (ptr3) {
+            if (ptr2->val > ptr1->val && ptr2->val > ptr3->val || 
+                ptr2->val < ptr1->val && ptr2->val < ptr3->val) {
+                arr.push_back(pos);
+            }
+
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+            ptr3 = ptr3->next;
+            pos++;
+        }
+        
+        if (arr.size() < 2) {
+            return {-1, -1}; // Fewer than 2 critical points
+        }
+
+        int mini = INT_MAX;
+        int maxi = arr.back() - arr.front();
+
+        for (size_t i = 1; i < arr.size(); i++) {
+            mini = min(mini, arr[i] - arr[i - 1]);
+        }
+
+        return {mini, maxi};
+    }
+};
