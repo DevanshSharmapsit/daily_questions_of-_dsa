@@ -1,0 +1,27 @@
+class Solution {
+public:
+    double averageWaitingTime(vector<vector<int>>& customers) {
+        int n=customers.size();
+        int s,f;
+        int i=0;
+        int finish_time=0;
+        double sum=0;
+        int curr=0;
+        while(i<n){
+            s=customers[i][0];
+            f=customers[i][1];
+            if(s>finish_time){
+                curr=s+f;
+                sum+=(curr-s);
+                finish_time=curr;
+            }
+            else{
+                curr=finish_time+f;
+                sum+=(curr-s);
+                finish_time=curr;
+            }
+            i++;
+        }
+        return sum/n;
+    }
+};
