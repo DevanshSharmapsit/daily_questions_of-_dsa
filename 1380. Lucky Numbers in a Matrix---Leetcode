@@ -1,0 +1,87 @@
+class Solution {
+public:
+    vector<int> luckyNumbers (vector<vector<int>>& matrix) {
+        // vector<int>ans;
+        // int n=matrix.size();
+        // int m=matrix[0].size();
+        // for(int i=0;i<n;i++){
+        //     int mini=INT_MAX;
+        //     for(int j=0;j<m;j++){
+        //         mini=min(mini,matrix[i][j]);
+        //     }
+        //     ans.push_back(mini);
+        // }
+        // int maxi=INT_MIN;
+        // for(int i=0;i<ans.size();i++){
+        //     maxi=max(maxi,ans[i]);
+        // }
+        // ans.clear();
+        // ans.push_back(maxi);
+        // return ans;
+
+        // vector<int>ans1;
+        // vector<int>ans2(matrix[0].size(),INT_MIN);
+        // int n=matrix.size();
+        // int m=matrix[0].size();
+        // int mini=0;
+        // for(int i=0;i<n;i++){
+        //     mini=INT_MAX;
+        //     for(int j=0;j<m;j++){
+        //         mini=min(mini,matrix[i][j]);
+        //     }
+        //     ans1.push_back(mini);
+        // }
+        // int maxi=0;
+        //  for(int i=0;i<m;i++){
+        //     for(int j=0;j<n;j++){
+        //         ans2[i]=max(ans2[i],matrix[i][j]);
+        //     }
+        // }
+        // vector<int>res;
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //         if(matrix[i][j] ==ans1[i] and matrix[i][j]==ans2[j]){
+        //             res.push_back(matrix[i][j]);
+        //         }
+        //     }
+        // }
+        // return res;
+
+
+        vector<int> rowMin;  // Stores the minimum value in each row
+        vector<int> colMax(matrix[0].size(), INT_MIN);  // Stores the maximum value in each column initially
+
+        int n = matrix.size();  // Number of rows
+        int m = matrix[0].size();  // Number of columns
+
+        // Find the minimum values in each row and store them in rowMin
+        for(int i = 0; i < n; ++i) {
+            int mini = INT_MAX;
+            for(int j = 0; j < m; ++j) {
+                mini = min(mini, matrix[i][j]);
+            }
+            rowMin.push_back(mini);
+        }
+
+        // Find the maximum values in each column and store them in colMax
+        for(int j = 0; j < m; ++j) {
+            for(int i = 0; i < n; ++i) {
+                colMax[j] = max(colMax[j], matrix[i][j]);
+            }
+        }
+
+        vector<int> res;
+
+        // Find the common elements between rowMin and colMax
+        for(int i = 0; i < n; ++i) {
+            for(int j = 0; j < m; ++j) {
+                if(matrix[i][j] == rowMin[i] && matrix[i][j] == colMax[j]) {
+                    res.push_back(matrix[i][j]);
+                }
+            }
+        }
+
+        return res;
+
+    }
+};
