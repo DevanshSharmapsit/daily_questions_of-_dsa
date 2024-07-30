@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkString(string s) {
+        int i=0;
+        int n=s.size();
+        bool p=true;
+        while(i<n){
+            if(s[i]=='a' and p==true){
+                i++;
+            }
+            else if(s[i]=='a' and p==false){
+                return false;
+            }
+            else{
+                if(s[i]=='b'){
+                    p=false;
+                    i++;
+                }
+            }
+        }
+        return true;
+    }
+};
