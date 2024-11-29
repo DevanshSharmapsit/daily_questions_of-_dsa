@@ -1,0 +1,141 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function template for C++
+class Solution {
+  public:
+    string addBinary(string& s1, string& s2) {
+        // your code here
+        int n=s1.size();
+        int m=s2.size();
+        
+        int i=n-1;
+        int j=m-1;
+        char carry='0';
+        vector<char>ans;
+        while(i>=0 and j>=0){
+            
+            if(s1[i]=='0' && s2[j]=='0'){
+                if(carry=='1'){
+                    ans.push_back('1');
+                    carry='0';
+                }
+                else{
+                    ans.push_back('0');
+                }
+            }
+            else if((s1[i]=='1' && s2[j]=='0')  or (s1[i]=='0' && s2[j]=='1')){
+                if(carry=='1'){
+                    ans.push_back('0');
+                }
+                else{
+                    ans.push_back('1');
+                }
+                
+            }
+            else{
+                if(carry=='1'){
+                    ans.push_back('1');
+                }
+                else{
+                    ans.push_back('0');
+                }
+                carry='1';
+            }
+            i--;
+            j--;
+        }
+        
+        while(i>=0){
+            if(carry=='1'){
+                if(s1[i]=='1'){
+                    ans.push_back('0');     
+                }
+                else {
+                    ans.push_back('1');
+                    carry='0';
+                }
+            }
+            else{
+                ans.push_back(s1[i]);
+            }
+            i--;
+        }
+        
+        while(j>=0){
+            if(carry=='1'){
+                if(s2[j]=='1'){
+                    ans.push_back('0');     
+                }
+                else {
+                    ans.push_back('1');
+                    carry='0';
+                }
+            }
+            else{
+                ans.push_back(s2[j]);
+            }
+            j--;
+        }
+        ans.push_back(carry);
+        // for(int k=0;k<ans.size();k++){
+        //     cout<<ans[k]<<" ";
+        // }
+        // reverse(ans.begin(),ans.begin());
+        
+        // for(int k=0;k<ans.size();k++){
+        //     cout<<ans[k]<<" ";
+        // }
+        
+    
+    stack<char> s;
+
+    // Push all elements of vector into stack
+    for (auto i : ans)
+        s.push(i);
+    ans.clear();
+
+    // Push all elements of stack back into vector
+    while (!s.empty()) {
+        ans.push_back(s.top());
+        s.pop();
+    }
+        string st="";
+        bool t=false;
+        
+        for(int i=0;i<ans.size();i++){
+            if(ans[i]=='0' and t==false){
+                continue;
+            }
+            else{
+                st+=ans[i];
+                t=true;
+            }
+        }
+        return st;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string A, B;
+        cin >> A >> B;
+        Solution ob;
+        cout << ob.addBinary(A, B);
+        cout << "\n";
+
+        cout << "~"
+             << "\n";
+    }
+}
+
+// Contributed By: Pranay Bansal
+
+// } Driver Code Ends
