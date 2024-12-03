@@ -1,0 +1,34 @@
+#python code.
+class Solution:
+    def addSpaces(self, s: str, spaces: List[int]) -> str:
+        n=len(s)
+
+        arr=[]
+        j=0
+        for i in range(n):
+            if j<len(spaces) and spaces[j]==i:
+                arr.append(" ")
+                j+=1
+            arr.append(s[i])
+        return "".join(arr)
+
+
+//in c++.
+class Solution {
+public:
+    string addSpaces(string s, vector<int>& spaces) {
+        string res="";
+
+        int j=0;
+        int n=s.size();
+
+        for(int i=0;i<n;i++){
+            if(j<spaces.size() && i==spaces[j]){
+                res+=" ";
+                j++;
+            }
+            res+=s[i];
+        }
+        return res;
+    }
+};
