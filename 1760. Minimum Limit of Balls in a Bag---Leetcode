@@ -1,0 +1,39 @@
+class Solution {
+public:
+
+    bool is_possible(vector<int>nums,int maxoperations ,int mid){
+        int total=0;
+
+        for(auto num:nums){
+            int op=num/mid;
+            if(num%mid==0){
+                op-=1;
+            }
+            total+=op;
+        }
+        if(total>maxoperations){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    int minimumSize(vector<int>& nums, int maxOperations) {
+        int low=1;
+        int high=*max_element(nums.begin(),nums.end());
+        int result=high;
+
+        while(low<=high){
+            int mid=(low+high)/2;
+
+            if(is_possible(nums,maxOperations,mid)){
+                result=min(result,mid);
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return result;
+    }
+};
